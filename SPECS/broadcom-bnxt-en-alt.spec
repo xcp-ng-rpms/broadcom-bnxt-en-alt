@@ -5,11 +5,13 @@
 
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
-Version: 1.8.54
+Version: 1.9.2
 Release: 1
 License: GPL
-# Source extracted from https://docs.broadcom.com/docs/bnxt_en-1.8.54-1.rhel7u4.src.rpm
-Source: netxtreme-bnxt_en-%{version}.tar.gz
+# Source extracted from https://downloads.dell.com/FOLDER05223333M/1/Bcom_LAN_214.0.166.0_NXE_Linux_Source_214.0.166.0.tar.gz
+# which was found in https://www.dell.com/support/home/us/en/19/drivers/driversdetails?driverId=727T5&osCode=SLE15&productCode=poweredge-r6415
+# (not very straightforward... Same search for RHEL gives an older result...)
+Source: netxtreme-bnxt_en-1.9.2-214.0.150.0.tar.gz
 
 BuildRequires: kernel-devel
 Provides: vendor-driver
@@ -24,7 +26,7 @@ Requires(postun): /usr/sbin/depmod
 version %{kernel_version}.
 
 %prep
-%autosetup -p1 -n netxtreme-bnxt_en-%{version}
+%autosetup -p1 -n netxtreme-bnxt_en-1.9.2-214.0.150.0
 
 %build
 cd bnxt_en
@@ -52,5 +54,8 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/%{module_dir}/*.ko
 
 %changelog
+* Fri Feb 15 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-1
+- New version 1.9.2
+
 * Fri Nov 16 2018 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.8.54-1
 - New version 1.8.54
