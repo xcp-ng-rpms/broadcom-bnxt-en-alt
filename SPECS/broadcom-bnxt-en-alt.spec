@@ -13,7 +13,9 @@ License: GPL
 # (not very straightforward... Same search for RHEL gives an older result...)
 Source: netxtreme-bnxt_en-1.9.2-214.0.150.0.tar.gz
 
+BuildRequires: gcc
 BuildRequires: kernel-devel
+
 Provides: vendor-driver
 Requires: kernel-uname-r = %{kernel_version}
 Requires(post): /usr/sbin/depmod
