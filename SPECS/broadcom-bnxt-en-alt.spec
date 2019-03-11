@@ -3,11 +3,13 @@
 %define driver_name bnxt-en
 %define module_name bnxt_en
 
+# FIXME extract version from macros
+%define kernel_version_short 4.4.0
 
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: 1.9.2
-Release: 3%dist
+Release: 4%dist
 License: GPL
 # Source extracted from https://downloads.dell.com/FOLDER05223333M/1/Bcom_LAN_214.0.166.0_NXE_Linux_Source_214.0.166.0.tar.gz
 # which was found in https://www.dell.com/support/home/us/en/19/drivers/driversdetails?driverId=727T5&osCode=SLE15&productCode=poweredge-r6415
@@ -45,7 +47,7 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 
 # override depmod configuration to give priority to our alternative driver
 mkdir -p %{buildroot}/etc/depmod.d
-echo "override %{module_name} %{kernel_version} xcp-ng-override" > %{buildroot}/etc/depmod.d/%{module_name}-%{kernel_version}.conf
+echo "override %{module_name} %{kernel_version_short} %{module_dir}" > %{buildroot}/etc/depmod.d/%{module_name}-%{kernel_version_short}.conf
 
 %post
 /sbin/depmod %{kernel_version}
@@ -61,10 +63,10 @@ echo "override %{module_name} %{kernel_version} xcp-ng-override" > %{buildroot}/
 %files
 %dir /lib/modules/%{kernel_version}/%{module_dir}
 /lib/modules/%{kernel_version}/%{module_dir}/*.ko
-/etc/depmod.d/%{module_name}-%{kernel_version}.conf
+/etc/depmod.d/%{module_name}-%{kernel_version_short}.conf
 
 %changelog
-* Mon Mar 11 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-3
+* Mon Mar 11 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-4
 - Override module directory for depmod to make sure our alternative driver takes precedence
 
 * Tue Mar 05 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-2
