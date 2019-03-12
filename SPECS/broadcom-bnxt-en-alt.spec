@@ -2,14 +2,16 @@
 %define vendor_label broadcom
 %define driver_name bnxt-en
 %define module_name bnxt_en
+%define module_dir override
 
-# FIXME extract version from macros
-%define kernel_version_short 4.4.0
+# We need this short version without any "+..." part
+# because override statements in /etc/depmod.d don't work with e.g. 4.4.0+10
+%define kernel_version_short %(echo %kernel_version | sed 's/\+.*//')
 
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: 1.9.2
-Release: 4%dist
+Release: 5%{?dist}
 License: GPL
 # Source extracted from https://downloads.dell.com/FOLDER05223333M/1/Bcom_LAN_214.0.166.0_NXE_Linux_Source_214.0.166.0.tar.gz
 # which was found in https://www.dell.com/support/home/us/en/19/drivers/driversdetails?driverId=727T5&osCode=SLE15&productCode=poweredge-r6415
@@ -23,9 +25,6 @@ Provides: vendor-driver
 Requires: kernel-uname-r = %{kernel_version}
 Requires(post): /usr/sbin/depmod
 Requires(postun): /usr/sbin/depmod
-
-
-%define module_dir xcp-ng-override/%{module_name}-%{version}
 
 %description
 %{vendor_name} %{driver_name} device drivers for the Linux Kernel
@@ -61,16 +60,13 @@ echo "override %{module_name} %{kernel_version_short} %{module_dir}" > %{buildro
 %{regenerate_initrd_posttrans}
 
 %files
-%dir /lib/modules/%{kernel_version}/%{module_dir}
-/lib/modules/%{kernel_version}/%{module_dir}/*.ko
+/lib/modules/%{kernel_version}/%{module_dir}/%{module_name}.ko
 /etc/depmod.d/%{module_name}-%{kernel_version_short}.conf
 
 %changelog
-* Mon Mar 11 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-4
+* Tue Mar 12 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-5
 - Override module directory for depmod to make sure our alternative driver takes precedence
-
-* Tue Mar 05 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-2
-- Make the RPM own its modules directory
+- Simplify module path (simply /lib/modules/{version}/override/)
 
 * Fri Feb 15 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-1
 - New version 1.9.2
