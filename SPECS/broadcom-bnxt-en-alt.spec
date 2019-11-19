@@ -84,7 +84,7 @@ echo "override %{module_name} %{kernel_version_short} %{module_dir}" > %{buildro
 /etc/depmod.d/%{module_name}-%{kernel_version_short}.conf
 
 %changelog
-* Tue Nov 12 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-214.0.253.1.1
+* Tue Nov 19 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-214.0.253.1.1
 - Update to 1.10.0-214.0.253.1
 - Add long comment in spec file regarding the versioning imbroglio
 
