@@ -8,15 +8,35 @@
 # because override statements in /etc/depmod.d don't work with e.g. 4.4.0+10
 %define kernel_version_short %(echo %kernel_version | sed 's/\+.*//')
 
+# Upstream versioning of these drivers is... peculiar.
+# There are at least 3 different versions for a given driver distribution from Dell.
+# The sources archive contains two versions: e.g. netxtreme-bnxt_en-1.10.0-214.0.253.1.tar.gz
+# We use the first one as the RPM Version (like Citrix does) and append the second one to the Release.
+# Note : we found that the first version (e.g. 1.10.0) does not uniquely identify a driver release,
+# so the second part is also necessary (although Citrix does not retain it in its RPM versioning).
+#
+# In the download page, the 214.0.253.1 is also written 21.40.25.31, someone probably knows why...
+# There's also another version displayed on top of the driver page, and this is the version that
+# the corresponding firmware usually says it requires.
+# Example: 21.4.2. Maybe it comes from [21].[4]0.[2]5.31?
+# If someone has sensible explanations to what appears like a mess to me, contact me!
+# (e-mail address for Samuel Verschelde available in the changelog)
+
+%define _version 1.10.0
+%define other_version 214.0.253.1
+
+# Just for documenting
+%define version_whatever 21.4.2
+
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
-Version: 1.9.2
-Release: 5%{?dist}
+Version: %{_version}
+Release: %{other_version}.1%{?dist}
 License: GPL
-# Source extracted from https://downloads.dell.com/FOLDER05223333M/1/Bcom_LAN_214.0.166.0_NXE_Linux_Source_214.0.166.0.tar.gz
+# Source extracted from https://dl.dell.com/FOLDER05739713M/1/Bcom_LAN_214.0.253.1_NXE_Linux_Source_214.0.253.1.tar.gz
 # which was found in https://www.dell.com/support/home/us/en/19/drivers/driversdetails?driverId=727T5&osCode=SLE15&productCode=poweredge-r6415
 # (not very straightforward... Same search for RHEL gives an older result...)
-Source: netxtreme-bnxt_en-1.9.2-214.0.150.0.tar.gz
+Source: netxtreme-bnxt_en-%{version}-%{other_version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: kernel-devel
@@ -31,7 +51,7 @@ Requires(postun): /usr/sbin/depmod
 version %{kernel_version}.
 
 %prep
-%autosetup -p1 -n netxtreme-bnxt_en-1.9.2-214.0.150.0
+%autosetup -p1 -n netxtreme-bnxt_en-%{version}-%{other_version}
 
 %build
 cd bnxt_en
@@ -64,6 +84,10 @@ echo "override %{module_name} %{kernel_version_short} %{module_dir}" > %{buildro
 /etc/depmod.d/%{module_name}-%{kernel_version_short}.conf
 
 %changelog
+* Tue Nov 12 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-214.0.253.1.1
+- Update to 1.10.0-214.0.253.1
+- Add long comment in spec file regarding the versioning imbroglio
+
 * Tue Mar 12 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.9.2-5
 - Override module directory for depmod to make sure our alternative driver takes precedence
 - Simplify module path (simply /lib/modules/{version}/override/)
