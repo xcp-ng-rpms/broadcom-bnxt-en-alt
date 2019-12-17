@@ -31,7 +31,7 @@ Release: %{other_version}.2%{?dist}
 License: GPL
 # Source extracted from https://dl.dell.com/FOLDER05739713M/1/Bcom_LAN_214.0.253.1_NXE_Linux_Source_214.0.253.1.tar.gz
 # which was found in https://www.dell.com/support/home/us/en/19/drivers/driversdetails?driverId=727T5&osCode=SLE15&productCode=poweredge-r6415
-# (not very straightforward... Same search for RHEL gives an older result...)
+# (not very straightforward... Same search for RHEL used to give an older result...)
 Source: netxtreme-bnxt_en-%{version}-%{other_version}.tar.gz
 
 BuildRequires: gcc
