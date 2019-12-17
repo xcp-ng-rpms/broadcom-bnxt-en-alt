@@ -4,10 +4,6 @@
 %define module_name bnxt_en
 %define module_dir override
 
-# We need this short version without any "+..." part
-# because override statements in /etc/depmod.d don't work with e.g. 4.4.0+10
-%define kernel_version_short %(echo %kernel_version | sed 's/\+.*//')
-
 # Upstream versioning of these drivers is... peculiar.
 # There are at least 3 different versions for a given driver distribution from Dell.
 # The sources archive contains two versions: e.g. netxtreme-bnxt_en-1.10.0-214.0.253.1.tar.gz
@@ -31,7 +27,7 @@
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: %{_version}
-Release: %{other_version}.1%{?dist}
+Release: %{other_version}.2%{?dist}
 License: GPL
 # Source extracted from https://dl.dell.com/FOLDER05739713M/1/Bcom_LAN_214.0.253.1_NXE_Linux_Source_214.0.253.1.tar.gz
 # which was found in https://www.dell.com/support/home/us/en/19/drivers/driversdetails?driverId=727T5&osCode=SLE15&productCode=poweredge-r6415
@@ -64,10 +60,6 @@ cd bnxt_en
 # mark modules executable so that strip-to-file can strip them
 find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chmod u+wx
 
-# override depmod configuration to give priority to our alternative driver
-mkdir -p %{buildroot}/etc/depmod.d
-echo "override %{module_name} %{kernel_version_short} %{module_dir}" > %{buildroot}/etc/depmod.d/%{module_name}-%{kernel_version_short}.conf
-
 %post
 /sbin/depmod %{kernel_version}
 %{regenerate_initrd_post}
@@ -81,9 +73,11 @@ echo "override %{module_name} %{kernel_version_short} %{module_dir}" > %{buildro
 
 %files
 /lib/modules/%{kernel_version}/%{module_dir}/%{module_name}.ko
-/etc/depmod.d/%{module_name}-%{kernel_version_short}.conf
 
 %changelog
+* Tue Dec 17 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-214.0.253.1.2
+- remove depmod configuration, not needed anymore since XCP-ng 8.0
+
 * Tue Nov 19 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-214.0.253.1.1
 - Update to 1.10.0-214.0.253.1
 - Add long comment in spec file regarding the versioning imbroglio
