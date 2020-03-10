@@ -18,7 +18,7 @@
 # (e-mail address for Samuel Verschelde available in the changelog)
 
 %define _version 1.10.0
-%define other_version 216.0.119.0
+%define other_version 216.0.119.1
 
 # Just for documenting
 # version_whatever = --- # e.g 21.4.2
@@ -77,6 +77,9 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Tue Mar 10 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-216.0.119.1.1
+- Update to 1.10.0-216.0.119.1
+
 * Tue Jan 28 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-216.0.119.0.1
 - Update to 1.10.0-216.0.119.0
 
