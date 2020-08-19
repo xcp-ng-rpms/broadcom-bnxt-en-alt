@@ -26,7 +26,7 @@
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: %{_version}_%{other_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 
 # Old comment retained as documentation:
@@ -77,11 +77,14 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
-* Tue Mar 10 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-216.0.119.1.1
-- Update to 1.10.0-216.0.119.1
+* Wed Aug 19 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0_216.0.119.1-2
+- Rebuild for XCP-ng 8.2
 
-* Tue Jan 28 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-216.0.119.0.1
-- Update to 1.10.0-216.0.119.0
+* Tue Mar 10 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0_216.0.119.1-1
+- Update to 1.10.0_216.0.119.1
+
+* Tue Jan 28 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0_216.0.119.0-1
+- Update to 1.10.0_216.0.119.0
 
 * Tue Dec 17 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0-214.0.253.1.2
 - remove depmod configuration, not needed anymore since XCP-ng 8.0
