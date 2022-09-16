@@ -26,7 +26,7 @@
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: %{_version}_%{other_version}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL
 
 # Old comment retained as documentation:
@@ -77,6 +77,9 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Fri Sep 16 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0_216.0.119.1-3
+- Rebuild for XCP-ng 8.3
+
 * Wed Aug 19 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0_216.0.119.1-2
 - Rebuild for XCP-ng 8.2
 
