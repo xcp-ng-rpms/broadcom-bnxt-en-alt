@@ -17,8 +17,8 @@
 # If someone has sensible explanations to what appears like a mess to me, contact me!
 # (e-mail address for Samuel Verschelde available in the changelog)
 
-%define _version 1.10.0
-%define other_version 216.0.119.1
+%define _version 1.10.2
+%define other_version 223.0.183.0
 
 # Just for documenting
 # version_whatever = --- # e.g 21.4.2
@@ -26,7 +26,7 @@
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: %{_version}_%{other_version}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPL
 
 # Old comment retained as documentation:
@@ -77,6 +77,10 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Mon Aug 21 2023 Gael Duperrey <gduperrey@vates.fr> - 1.10.2_223.0.183.0-1
+- Update to version 1.10.2_223.0.183.0
+- Synced from XS driver SRPM broadcom-bnxt-en-1.10.2_223.0.183.0-1.xs8~2_1.src.rpm
+
 * Wed Aug 19 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0_216.0.119.1-2
 - Rebuild for XCP-ng 8.2
 
