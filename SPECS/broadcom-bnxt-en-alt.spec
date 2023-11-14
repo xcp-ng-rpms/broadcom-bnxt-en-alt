@@ -18,7 +18,7 @@
 # (e-mail address for Samuel Verschelde available in the changelog)
 
 %define _version 1.10.2
-%define other_version 223.0.183.0
+%define other_version 227.0.130.0
 
 # Just for documenting
 # version_whatever = --- # e.g 21.4.2
@@ -36,7 +36,8 @@ License: GPL
 # (And the latest I found was older than what XS had...)
 
 # New comment:
-# Source extracted from XS driver disk
+# Source extracted from Broadcom.com
+# URL: https://docs.broadcom.com/docs/NXE_Linux_Installer-227.1.111.0
 Source: broadcom-bnxt-en-%{version}.tar.gz
 
 BuildRequires: gcc
@@ -77,6 +78,10 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Tue Nov 14 2023 Gael Duperrey <gduperrey@vates.tech> - 1.10.2_227.0.130.0-1
+- Update to version 1.10.2_227.0.130.0
+- Synced from broadcom.com
+
 * Mon Aug 21 2023 Gael Duperrey <gduperrey@vates.fr> - 1.10.2_223.0.183.0-1
 - Update to version 1.10.2_223.0.183.0
 - Synced from XS driver SRPM broadcom-bnxt-en-1.10.2_223.0.183.0-1.xs8~2_1.src.rpm
