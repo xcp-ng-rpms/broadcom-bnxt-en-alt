@@ -17,8 +17,8 @@
 # If someone has sensible explanations to what appears like a mess to me, contact me!
 # (e-mail address for Samuel Verschelde available in the changelog)
 
-%define _version 1.10.0
-%define other_version 216.0.119.1
+%define _version 1.10.2
+%define other_version 227.0.130.0
 
 # Just for documenting
 # version_whatever = --- # e.g 21.4.2
@@ -26,7 +26,7 @@
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: %{_version}_%{other_version}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPL
 
 # Old comment retained as documentation:
@@ -36,7 +36,8 @@ License: GPL
 # (And the latest I found was older than what XS had...)
 
 # New comment:
-# Source extracted from XS driver disk
+# Source extracted from Broadcom.com
+# URL: https://docs.broadcom.com/docs/NXE_Linux_Installer-227.1.111.0
 Source: broadcom-bnxt-en-%{version}.tar.gz
 
 BuildRequires: gcc
@@ -77,6 +78,10 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Wed Nov 15 2023 Gael Duperrey <gduperrey@vates.tech> - 1.10.2_227.0.130.0-1
+- Update to version 1.10.2_227.0.130.0
+- Synced from broadcom.com
+
 * Fri Sep 16 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.10.0_216.0.119.1-3
 - Rebuild for XCP-ng 8.3
 
