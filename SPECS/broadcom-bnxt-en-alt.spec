@@ -17,8 +17,8 @@
 # If someone has sensible explanations to what appears like a mess to me, contact me!
 # (e-mail address for Samuel Verschelde available in the changelog)
 
-%define _version 1.10.2
-%define other_version 227.0.130.0
+%define _version 1.10.3
+%define other_version 231.0.162.0
 
 # Just for documenting
 # version_whatever = --- # e.g 21.4.2
@@ -37,7 +37,13 @@ License: GPL
 
 # New comment:
 # Source extracted from Broadcom.com
-# URL: https://docs.broadcom.com/docs/NXE_Linux_Installer-227.1.111.0
+# URL: https://www.broadcom.com/products/ethernet-connectivity/network-adapters
+# Version on website: 231.1.162.1
+# Source version: 231.0.162.0
+# - extracted tarball bcm_231.1.162.1b.tar.gz that contains sources and various RPMs
+# - extracted source tarball, here named bnxt_en-1.10.3-231.0.162.0.tar.gz
+# - rename folder to driver-broadcom-bnxt-en-$VERSION
+# - regenerate tarball with name broadcom-bnxt-en-$VERSION
 Source: broadcom-bnxt-en-%{version}.tar.gz
 
 BuildRequires: gcc
@@ -78,6 +84,10 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Thu Nov 28 2024 David Morel <david.morel@vates.tech> - 1.10.2_231.0.162.0-1
+- Update to version 1.10.2_231.0.162.0
+- Synced from broadcom.com
+
 * Wed Nov 15 2023 Gael Duperrey <gduperrey@vates.tech> - 1.10.2_227.0.130.0-1
 - Update to version 1.10.2_227.0.130.0
 - Synced from broadcom.com
