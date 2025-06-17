@@ -18,7 +18,7 @@
 # (e-mail address for Samuel Verschelde available in the changelog)
 
 %define _version 1.10.3
-%define other_version 231.0.162.0
+%define other_version 232.0.155.5
 
 # Just for documenting
 # version_whatever = --- # e.g 21.4.2
@@ -37,13 +37,8 @@ License: GPL
 
 # New comment:
 # Source extracted from Broadcom.com
-# URL: https://www.broadcom.com/products/ethernet-connectivity/network-adapters
-# Version on website: 231.1.162.1
-# Source version: 231.0.162.0
-# - extracted tarball bcm_231.1.162.1b.tar.gz that contains sources and various RPMs
-# - extracted source tarball, here named bnxt_en-1.10.3-231.0.162.0.tar.gz
-# - rename folder to driver-broadcom-bnxt-en-$VERSION
-# - regenerate tarball with name broadcom-bnxt-en-$VERSION
+# URL: https://docs.broadcom.com/docs/bnxt_en-232-0-155-5-linux-driver
+# Source version: 232.0.155.5
 Source: broadcom-bnxt-en-%{version}.tar.gz
 
 BuildRequires: gcc
@@ -84,6 +79,9 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Wed Jun 18 2025 Thierry Escande <thierry.escande@vates.tech> - 1.10.3_232.0.155.5-1
+- Update to version 1.10.3_232.0.155.5
+
 * Thu Nov 28 2024 David Morel <david.morel@vates.tech> - 1.10.2_231.0.162.0-1
 - Update to version 1.10.2_231.0.162.0
 - Synced from broadcom.com
