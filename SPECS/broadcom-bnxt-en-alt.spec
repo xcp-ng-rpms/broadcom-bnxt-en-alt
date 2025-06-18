@@ -41,6 +41,10 @@ License: GPL
 # Source version: 232.0.155.5
 Source: broadcom-bnxt-en-%{version}.tar.gz
 
+# XCP-ng specific
+# Patch from XS8 srpm
+Patch1000: Fix-GSO-type-for-HW-GRO-packets-on-5750X-chips.patch
+
 BuildRequires: gcc
 BuildRequires: kernel-devel
 Provides: vendor-driver
@@ -81,6 +85,7 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 %changelog
 * Wed Jun 18 2025 Thierry Escande <thierry.escande@vates.tech> - 1.10.3_232.0.155.5-1
 - Update to version 1.10.3_232.0.155.5
+- Add patch to fix GSO type for HW GRO packets on 5750X chips
 
 * Thu Nov 28 2024 David Morel <david.morel@vates.tech> - 1.10.2_231.0.162.0-1
 - Update to version 1.10.2_231.0.162.0
