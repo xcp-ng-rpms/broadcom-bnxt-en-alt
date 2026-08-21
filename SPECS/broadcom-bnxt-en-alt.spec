@@ -26,7 +26,10 @@
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
 Version: %{_version}_%{other_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
+# Built against new kABI after cip rebase
+Requires: xcpng-kernel-kabi = 4.19.325-cip134+
+
 License: GPL
 
 # Old comment retained as documentation:
@@ -83,6 +86,9 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Mon Aug 31 2026 Quentin Casasnovas <quentin.casasnovas@vates.tech> - 1.10.3_232.0.155.5-2
+- Rebuild for kernel v4.19.325-cip134
+
 * Wed Jun 18 2025 Thierry Escande <thierry.escande@vates.tech> - 1.10.3_232.0.155.5-1
 - Update to version 1.10.3_232.0.155.5
 - Add patch to fix GSO type for HW GRO packets on 5750X chips
